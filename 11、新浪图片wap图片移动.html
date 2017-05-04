@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        section{
+            width: 100%;
+            overflow: hidden;
+        }
+        .div1{
+            width: 100%;
+            height: 800px;
+            background-color: #999999;
+        }
+        .move{
+            -webkit-animation:move 2s ease-in 1;
+            -o-animation:move 2s ease-in 1;
+            animation:move 2s ease-in 1;
+        }
+        @keyframes move {
+            0%{
+                margin-left: 0;
+            }
+            50%{
+                margin-left: -20px;
+            }
+            100%{
+                margin-left: 0;
+            }
+        }
+        @-webkit-keyframes move {
+            0%{
+                margin-left: 0;
+            }
+            50%{
+                margin-left: -20px;
+            }
+            100%{
+                margin-left: 0;
+            }
+        }
+        .swiper-wrapper li{
+            width: 100px;
+            height: 50px;
+            float: left;
+            font-size: 16px;
+            line-height: 50px;
+            text-align: center;
+            background-color: pink;
+            list-style: none;
+            border: 1px solid lightblue;
+        }
+    </style>
+    <link rel="stylesheet" href="swiper-3.3.1.min.css">
+    <script src="zepto.js"></script>
+    <script src="swiper.min.js"></script>
+</head>
+<body>
+<section>
+    <div class="div1"></div>
+    <div class="swiper-container">
+    <ul class="swiper-wrapper">
+        <li class="swiper-slide">1</li>
+        <li class="swiper-slide">2</li>
+        <li class="swiper-slide">3</li>
+        <li class="swiper-slide">4</li>
+        <li class="swiper-slide">5</li>
+        <li class="swiper-slide">6</li>
+        <li class="swiper-slide">7</li>
+        <li class="swiper-slide">8</li>
+    </ul>
+        </div>
+    <div class="div1"></div>
+</section>
+
+<script>
+    $(document).on("scroll",function () {
+        if(($(".swiper-wrapper").offset().top+$(".swiper-wrapper").height())<($(window).height()+$(window).scrollTop())&&$(".swiper-wrapper").offset().top>$(window).scrollTop()){
+            $(".swiper-wrapper").addClass("move");
+        }
+    });
+    //动画结束后取消class，确保swiper-wrapper在当前屏幕时用户再次滑动仍然有动画
+    $(document).on("animationend",".swiper-wrapper",function () {
+        $(".swiper-wrapper").removeClass("move");
+    });
+    //滑动轮播
+    $(function () {
+        var myswiper=new Swiper(".swiper-container",{
+            direction: 'horizontal',
+            loop: false,
+            slidesPerView: "auto",
+            spaceBetween: 5,
+            freeMode: true
+        })
+    })
+
+</script>
+</body>
+</html>

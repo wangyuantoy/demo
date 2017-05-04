@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            perspective: 512px;
+            -webkit-perspective: 512px;
+            -webkit-perspective-origin: 50%;
+            perspective-origin: 50%
+        }
+
+        .cube > div {
+            position: absolute;
+            width: 1024px;
+            height: 1024px;
+            background-color: #999;
+            font-size: 60px;
+            color: grey;
+            line-height: 200px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, .1);
+        }
+
+        .front {
+            background: url("img/pos-x.png") center center no-repeat;
+            -webkit-transform: rotateY(180deg) translateZ(-512px);
+            -moz-transform: rotateY(180deg) translateZ(-512px);
+            -ms-transform:  rotateY(180deg) translateZ(-512px);
+            -o-transform:  rotateY(180deg) translateZ(-512px);
+            transform:  rotateY(180deg) translateZ(-512px);
+        }
+
+        /*注意是先旋转还是先平移，如果是先旋转，translate时的XYZ是遵循旋转后的空间维度*/
+        .back {
+            background: url("img/neg-x.png") center center no-repeat;
+            -webkit-transform: rotateY(0deg) translateZ(-512px);
+            -moz-transform: rotateY(0deg) translateZ(-512px);
+            -ms-transform: rotateY(0deg) translateZ(-512px);
+            -o-transform: rotateY(0deg) translateZ(-512px);
+            transform: rotateY(0deg) translateZ(-512px);
+        }
+
+        .left {
+            background: url("img/neg-z.png") center center no-repeat;
+            -webkit-transform: rotateY(90deg) translateZ(-512px);
+            -moz-transform: rotateY(90deg) translateZ(-512px);
+            -ms-transform: rotateY(90deg) translateZ(-512px);
+            -o-transform: rotateY(90deg) translateZ(-512px);
+            transform: rotateY(90deg) translateZ(-512px);
+        }
+
+        .right {
+            background: url("img/pos-z.png") center center no-repeat;
+            -webkit-transform: rotateY(-90deg) translateZ(-512px);
+            -moz-transform: rotateY(-90deg) translateZ(-512px);
+            -ms-transform: rotateY(-90deg) translateZ(-512px);
+            -o-transform: rotateY(-90deg) translateZ(-512px);
+            transform: rotateY(-90deg) translateZ(-512px);
+        }
+
+        .top {
+            background: url("img/pos-y.png") center center no-repeat;
+            -webkit-transform: rotateX(-90deg) translateZ(-512px);
+            -moz-transform: rotateX(-90deg) translateZ(-512px);
+            -ms-transform: rotateX(-90deg) translateZ(-512px);
+            -o-transform: rotateX(-90deg) translateZ(-512px);
+            transform: rotateX(-90deg) translateZ(-512px);
+        }
+
+        .bottom {
+            background: url("img/neg-y.png") center center no-repeat;
+            -webkit-transform: rotateX(90deg) translateZ(-512px);
+            -moz-transform: rotateX(90deg) translateZ(-512px);
+            -ms-transform: rotateX(90deg) translateZ(-512px);
+            -o-transform: rotateX(90deg) translateZ(-512px);
+            transform: rotateX(90deg) translateZ(-512px);
+        }
+        .cube {
+            width: 1024px;
+            height: 1024px;
+            position: relative;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            margin: 0 auto;
+            animation: roll 5s 1;
+            -webkit-animation: roll 5s 1;
+            /*animation-fill-mode: both;*/
+            /*-webkit-animation-fill-mode: both;*/
+            transform-origin: center center;
+        }
+        @-webkit-keyframes roll {
+        from {
+        transform: rotateY(0deg) rotateX(0deg);
+        -webkit-transform: rotateY(0deg) rotateX(0deg);
+        }
+        to {
+            transform: rotateY(180deg) rotateY(180deg);
+            -webkit-transform: rotateY(180deg) rotateY(180deg);
+        }
+        }
+
+        @keyframes roll {
+        from {
+        transform: rotateY(0deg) rotateX(0deg);
+        -webkit-transform: rotateY(0deg) rotateX(0deg);
+        }
+        to {
+        transform: rotateY(90deg) rotateY(90deg);
+        -webkit-transform: rotateY(90deg) rotateY(90deg);
+        }
+        }
+
+        /*设置旋转时背面是否可见，设置的是 .c1 > div*/
+        .c1 > div {
+            backface-visibility: visible;
+            -webkit-backface-visibility: visible;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="cube c1">
+    <div class="front"></div>
+    <div class="back"></div>
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="top"></div>
+    <div class="bottom"></div>
+</div>
+<!--<div class="cube c2">-->
+<!--<div class="front">1</div>-->
+<!--<div class="back">2</div>-->
+<!--<div class="left">3</div>-->
+<!--<div class="right">4</div>-->
+<!--<div class="top">5</div>-->
+<!--<div class="bottom">6</div>-->
+<!--</div>-->
+</body>
+</html>

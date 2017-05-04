@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="applicable-device" content="mobile">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        body{font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;background: #eeeeee;font-size:12px;color:#333;}
+
+        html,body{
+            width: 100%;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            height: 100%;
+        }
+        body {
+            min-width: 320px;
+            max-width: 750px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+        }
+        .spirit {              /* 方块的class名称*/
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+        }
+    </style>
+
+</head>
+
+<body >
+
+<div id="canvas"  style="position: relative;width:100%;height: 100%;"></div>
+
+</body>
+<script>
+    window.onload=function () {
+        var canvas = document.getElementById("canvas"),
+                spirit, startX, startY;
+        // touch start listener
+
+        function touchStart(event) {
+            event.preventDefault();
+            if (spirit ||! event.touches.length) return;
+            var touch = event.touches[0];
+            startX = touch.pageX;
+            startY = touch.pageY;
+            spirit = document.createElement("div");
+            spirit.className = "spirit";
+            spirit.style.left = startX+"px";
+            spirit.style.top = startY+"px";
+
+            canvas.appendChild(spirit);
+        }
+
+        // add touch start listener
+
+        canvas.addEventListener("touchstart", touchStart, false);
+        function touchMove(event) {
+            event.preventDefault();
+            if (!spirit || !event.touches.length) return;
+            var touch = event.touches[0];
+            var x = touch.pageX - startX;
+            var y = touch.pageY - startY;
+            spirit.style.webkitTransform = 'translate(' + x + 'px, ' + y + 'px)';
+        }
+
+        canvas.addEventListener("touchmove", touchMove, false);
+
+        function touchEnd(event) {
+            if (!spirit) return;
+            canvas.removeChild(spirit);
+            spirit = null;
+        }
+
+        canvas.addEventListener("touchend", touchEnd, false);
+    }
+
+</script>
+</html>
+

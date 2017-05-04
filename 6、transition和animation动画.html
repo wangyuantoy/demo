@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: #999;
+            text-align: center;
+            line-height: 200px;
+            color: #fff;
+            font-size: 25px;
+            margin-top: 20px;
+        }
+        .div1:hover {/*hover时触发transition动画*/
+            width: 500px;
+            background-color: red;
+            transition-property: width, background-color; /*多个属性用逗号隔开*/
+            transition-duration: 1s;
+            transition-timing-function: ease-in;
+        }
+        /*如果要控制animation的开始时间，用JS通过添加类名的方式*/
+        .div2 {
+            animation: mouseon 1s ease-in-out;
+            animation-fill-mode: both;/*默认none；forwards停留在动画结束状态；backwards动画结束后恢复原状；both停留在动画结束或开始的状态*/
+        }
+        @keyframes mouseon {
+            from {
+                width: 200px;
+                background-color: #999;
+            }
+            to{
+                width: 500px;
+                background-color: red;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<!--Animation通过模拟属性值改变来实现动画，动画结束之后元素的属性没有变化；而Transition确实改变了元素的属性值，动画结束之后元素的属性发生了变化；-->
+<div class="box div1">transition动画</div>
+<div class="box div2">animation动画</div>
+</body>
+<script>
+
+</script>
+</html>
