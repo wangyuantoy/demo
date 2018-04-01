@@ -3,10 +3,10 @@
  * 没有碰撞，位置复原;多个碰撞和接触面积最大的交换位置
  * 交换位置时，选中的图片在最上层划过去
  * */
-var boxList = $('#box>li');
+let boxList = $('#box>li');
 //进入页面先记录下每个图片的初始位置，并绑定事件
-for (var i = boxList.length - 1; i >= 0; i--) {
-    var curLi = boxList[i];
+for (let i = boxList.length - 1; i >= 0; i--) {
+    let curLi = boxList[i];
     curLi.originTop = curLi.offsetTop;
     curLi.originLeft = curLi.offsetLeft;
 
@@ -25,7 +25,7 @@ for (var i = boxList.length - 1; i >= 0; i--) {
     $(curLi).on("dragend", preventDefault);
 }
 //提升zIndex,拖拽谁，谁的zIndex提升
-var zIndex = 0;
+let zIndex = 0;
 function increaseIndex() {
     $(this).css({
         zIndex: ++zIndex,
@@ -57,8 +57,8 @@ function down(e) {
     $(this).trigger("dragstart");
 }
 function move(e) {
-    var curL = e.pageX - this.startX + this.startL;
-    var curT = e.pageY - this.startY + this.startT;
+    let curL = e.pageX - this.startX + this.startL;
+    let curT = e.pageY - this.startY + this.startT;
     $(this).css({left: curL, top: curT});
     $(this).trigger("drag");
 }
@@ -76,8 +76,8 @@ function up() {
 //拖拽对象移动
 function boxMove() {
     this["crashList"] = [];
-    for (var i = 0; i < boxList.length; i++) {
-        var curLi = boxList[i];
+    for (let i = 0; i < boxList.length; i++) {
+        let curLi = boxList[i];
         if (this != curLi) {
             if (crashTest(this, curLi)) {//有碰撞
                 $(curLi).css("backgroundColor", "red");
@@ -91,12 +91,12 @@ function boxMove() {
 //拖拽结束后，变换位置
 function changePos() {
     $(this).off("mousedown", down);
-    var ary = this["crashList"];
+    let ary = this["crashList"];
     if (ary && ary.length > 0) {  //有碰撞
-        var crashParam = [];
-        for (var i = 0; i < ary.length; i++) {
-            var crashTarget = ary[i];
-            var distance = Math.sqrt(Math.pow(this.offsetTop - crashTarget.offsetTop, 2) + Math.pow(this.offsetLeft - crashTarget.offsetLeft, 2));
+        let crashParam = [];
+        for (let i = 0; i < ary.length; i++) {
+            let crashTarget = ary[i];
+            let distance = Math.sqrt(Math.pow(this.offsetTop - crashTarget.offsetTop, 2) + Math.pow(this.offsetLeft - crashTarget.offsetLeft, 2));
             crashParam.push({
                 target: crashTarget,
                 distance: distance
@@ -106,7 +106,7 @@ function changePos() {
         crashParam.sort(function (a, b) {
             return a.distance - b.distance;
         });
-        var minTarget = crashParam[0].target;
+        let minTarget = crashParam[0].target;
         $(this).animate({
             left: minTarget.originLeft,
             top: minTarget.originTop
@@ -117,11 +117,11 @@ function changePos() {
             left: this.originLeft,
             top: this.originTop
         }, 300);
-        for (var j = 0; j < boxList.length; j++) {
+        for (let j = 0; j < boxList.length; j++) {
             $(boxList[j]).css("backgroundColor", "lightBlue")
         }
-        var tempT = this.originTop;
-        var tempL = this.originLeft;
+        let tempT = this.originTop;
+        let tempL = this.originLeft;
         this.originTop = minTarget.originTop;
         this.originLeft = minTarget.originLeft;
         minTarget.originTop = tempT;
@@ -148,9 +148,9 @@ function goHome() {
 }
 //改变this
 function processThis(fn, context) {
-    var outerArg = Array.prototype.slice.call(arguments, 2);
+    let outerArg = Array.prototype.slice.call(arguments, 2);
     return function () {
-        var innerArg = Array.prototype.slice.call(arguments, 0);
+        let innerArg = Array.prototype.slice.call(arguments, 0);
         fn.apply(context, outerArg.concat(innerArg));
     }
 }
